@@ -1,14 +1,17 @@
 notes:
+
     - one reason python stands out is because it is easy to intergrate C, C++, and FORTRAN code 
     - pyton is an interperted programming language 
     - typically, python is slower than compiled languages, like Java or C++
 
 libraries:
+
     1. NumPy: foundational package for scientific computing. most of the book is written using NumPy
     2. pandas: name comes from panel data. used for structured data. python is similar to r (e.g. data.frame in r and DataFrame in python)
     3. IPython: used for runnning, debugging and testing
 
 installation:
+
     - Google Anaconda installer for Apple
     - click Installing on macOS - Anaconda Documentation
     - under the macOS graphical install section, click the macOS installer link from step 1
@@ -18,7 +21,7 @@ installation:
     - to check if Anaconda downloaded properly, open Terminal and enter:
 
     cd /Users/<Your_Computer_User>/ (to change directory)
-    cat .bash_profile (show contents of a file)   ->   First line should look like "# >>> conda initialize >>>" 
+    cat .bash_profile (show contents of a file)   ->   first line should look like "# >>> conda initialize >>>" 
 
     - when you know Anaconda is properly initialized you can open Python by typing, in your terminal:
 
