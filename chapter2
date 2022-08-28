@@ -10,6 +10,86 @@ notes:
     ipython --pylab
 
     - this will run iPython in Pylab
+    - JSON -> JavaScript Object Notation
+    - import json
+      path = 'destination/filename'
+      open(path).readline()
+    - list comprehension - conise way of applying an operation (like json.loads) to a collection of strings or other objects:
     
+    import json
+    path = 'ch02/usagov_bitly_data2012-03-16-1331923249.txt'
+    records = [json.loads(line) for line in open(path, 'rb')]   <-   list comprehension (records is a list of python dicts)
     
+    - "conveniently, iterating over an open file handle gives you a sequence of its lines"
+    - Python indices start at 0 and not 1 like some other languages (like R)
+    - it's "easy to access individual values within records by passing a string for the key you wish to access":
+    
+    In[19]: records[0]['tz']
+    Out[19]: u'America/New_York'
+    
+    - ^ u stands for unicode, "a standard form of string encoding"
+    - Note: ^ "IPython shows the time zone string object representation here rather than its print equivalent":
+    
+    In[20]: print records[0]['tz']
+    Out[20]: America/New_York
+    
+Counting Time Zones in Pure Python
+
+    - looking at a dataset to see which time zones appear the most often
+    - "extract a list of time zones again using a list comprehension":
+    
+    time_zones = [rec['tz'] for rec in records]
+    
+    - OOPS error because not all records have a time zone field 
+    - "this is easy to handle as we can add the check if 'tz' in rec at the end of the list comprehension":
+    
+    time_zones = [rec['tz'] for rec in records if 'tz' in rec]
+    time_zones[:10]   <-   to look at first 10 time zones in dataset
+    
+    - there are two approaches to tally up counts of time zones:
+    
+    the hard way (standard Python library)
+    easier way (pandas library)
+    
+    - "use a dict to store counts while we iterate through the time zones":
+    
+    def get_counts(sequence):
+        counts = {}
+        for x in sequence:
+            if x in counts:
+                counts[x] += 1
+            else:
+                counts[x] = 1
+        return counts
+
+    - "I put this logic in a function just to make it more reusable. To use it on the time zones, just pass the time_zones list:"
+    
+    In [31]: counts = get_counts(time_zones)
+
+    In [32]: counts['America/New_York']
+    Out[32]: 1251
+
+    In [33]: len(time_zones)
+    Out[33]: 3440
+    
+    - "If we wanted the top 10 time zones and their counts, we have to do a little bit of dictionary acrobatics:"
+    
+    def top_counts(count_dict, n=10):
+        value_key_pairs = [(count, tz) for tz, count in count_dict.items()]
+        value_key_pairs.sort()
+        return value_key_pairs[-n:]
+        
+        
+    In [35]: top_counts(counts)
+    Out[35]:
+        [(33, u'America/Sao_Paulo'),
+        (35, u'Europe/Madrid'),
+        (36, u'Pacific/Honolulu'),
+        (37, u'Asia/Tokyo'),
+        (74, u'Europe/London'),
+        (191, u'America/Denver'),
+        (382, u'America/Los_Angeles'),
+        (400, u'America/Chicago'),
+        (521, u''),
+        (1251, u'America/New_York')]
     
