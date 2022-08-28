@@ -46,7 +46,7 @@ installation:
     
 back to the book notes:
 
-    - integrated development enviornments (IDEs) - is a software application that provides comprehensive facilities to computer \
+    - integrated development enviornments (IDEs) - is a software application that provides comprehensive facilities to computer
     programmers for software development. An IDE normally consists of at least a source code editor, build automation tools and a debugger
     - the author says he uses iPython and a text editor, but also notes that some people prefer to work in an IDE instead of a text editor
     - ask Rachel what IDE she uses
@@ -54,7 +54,4 @@ back to the book notes:
     - import pandas as pd   ->   importing convention 
     - munge/ munging/ wrangling: putting messy data into a clean or structured form 
     - pseudocode: a description of an algorithm or process that takes a code-like form while likely not being actual valid source code
-    - syntactic sugar: programming syntax which does not add new features, but makes something more convenient or easier to type.
-    
-    
-
+    - syntactic sugar: programming syntax which does not add new features, but makes something more convenient or easier to type
