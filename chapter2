@@ -1,0 +1,15 @@
+notes:
+
+    - python tasks are generally about 1. interacting with the world (reading/ writing to files)
+                                       2. preparing (transforming data for analysis)
+                                       3. transformation (applying formulas)
+                                       4. modeling and computation (connecting data to models, algorithms, etc.)
+                                       5. presentation (visualizations)
+    - book says to type:
+    
+    ipython --pylab
+
+    - this will run iPython in Pylab
+    
+    
+    
