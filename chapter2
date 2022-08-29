@@ -177,11 +177,50 @@ Counting Time Zones with pandas
 
 MovieLens 1M Data Set
 
+    - highlights how to merge data, compute mean ratings by sex and age
 
-    
-    
-    
+US Baby Names 1880-2010
 
-
-
+    - shows how to import baby names data set as a csv:
     
+    In [96]: import pandas as pd
+    In [97]: names1880 = pd.read_csv('names/yob1880.txt', names=['name', 'sex', 'births'])
+    In [98]: names1880
+    
+    - how to add a year column:
+    
+    # 2010 is the last available year right now
+    years = range(1880, 2011)
+
+    pieces = []
+    columns = ['name', 'sex', 'births']
+
+    for year in years:
+        path = 'names/yob%d.txt' % year
+        frame = pd.read_csv(path, names=columns)
+
+        frame['year'] = year
+        pieces.append(frame)
+
+    # Concatenate everything into a single DataFrame
+    names = pd.concat(pieces, ignore_index=True)
+    
+    - Note: "you have to pass ignore_index=True because we’re not interested in preserving the original row numbers returned from read_csv."
+    - group by year:
+    
+    In [102]: total_births = names.pivot_table('births', rows='year',
+    .....:                                  cols='sex', aggfunc=sum)
+
+    In [103]: total_births.tail()
+    Out[103]: 
+    sex         F        M
+    year                  
+    2006  1896468  2050234
+    2007  1916888  2069242
+    2008  1883645  2032310
+    2009  1827643  1973359
+    2010  1759010  1898382
+
+    In [104]: total_births.plot(title='Total births by sex and year')
+    
+    - this chapter is about the basics of transforming and plotting data
