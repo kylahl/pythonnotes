@@ -92,4 +92,96 @@ Counting Time Zones in Pure Python
         (400, u'America/Chicago'),
         (521, u''),
         (1251, u'America/New_York')]
+        
+    - Python standard library   ->   collections.-Counter class, which makes this all so much easier:
+    
+    In [49]: from collections import Counter
+
+    In [50]: counts = Counter(time_zones)
+
+    In [51]: counts.most_common(10)
+    Out[51]:
+        [(u'America/New_York', 1251),
+        (u'', 521),
+        (u'America/Chicago', 400),
+        (u'America/Los_Angeles', 382),
+        (u'America/Denver', 191),
+        (u'Europe/London', 74),
+        (u'Asia/Tokyo', 37),
+        (u'Pacific/Honolulu', 36),
+        (u'Europe/Madrid', 35),
+        (u'America/Sao_Paulo', 33)]
+      
+Counting Time Zones with pandas
+
+    - DataFram is the main pandas data structure (spreadsheet data)
+    - "creating a DataFrame from the original set of records is simple:"
+    
+    In [17]: from pandas import DataFrame, Series
+    In [18]: import pandas as pd
+    In [19]: frame = DataFrame(records)
+    In [20]: frame.info()
+    In [21]: frame['tz'][:10]
+    
+    - "The output shown for the frame is the summary view, shown for large DataFrame objects.
+       The Series object returned by frame['tz'] has a method value_counts that gives us what we’re looking for:"
+       
+    In [22]: tz_counts = frame['tz'].value_counts()
+    In [23]: tz_counts[:10]
+    Out[23]: 
+        America/New_York       1251
+                                521
+        America/Chicago         400
+        America/Los_Angeles     382
+        America/Denver          191
+        Europe/London            74
+        Asia/Tokyo               37
+        Pacific/Honolulu         36
+        Europe/Madrid            35
+        America/Sao_Paulo        33
+        dtype: int64
+        
+    - WOOT WOOT this is a super easy way to get total counts ^
+    - Now, to plot this data. Use matplotlib, the plotting library
+    - You can munge to "fill in a substitute value for unknow and missing time zone data in the records"
+    - "the fillna function can replace missing (NA) values and unknown (empty strings) values can be replaced by boolean array indexing:"
+    
+    In [24]: clean_tz = frame['tz'].fillna('Missing')
+
+    In [25]: clean_tz[clean_tz == ''] = 'Unknown'
+
+    In [26]: tz_counts = clean_tz.value_counts()
+
+    In [27]: tz_counts[:10]
+    Out[27]: 
+        America/New_York       1251
+        Unknown                 521
+        America/Chicago         400
+        America/Los_Angeles     382
+        America/Denver          191
+        Missing                 120
+        Europe/London            74
+        Asia/Tokyo               37
+        Pacific/Honolulu         36
+        Europe/Madrid            35
+        dtype: int64
+        
+    - WOOT WOOT this is looking great!
+    - WOW now let's do a chart:
+    
+    In [29]: tz_counts[:10].plot(kind='barh', rot=0)
+    
+    - LOOKING GOOD
+    - next, the textbook shows you how to use take to select rows in order as well as how to slice off the last 10 rows
+    - also, shows us how to make a stacked bar plot and, also how "rows can easily be normalized to sum to 1 then plotted again"
+
+MovieLens 1M Data Set
+
+
+    
+    
+    
+
+
+
     
